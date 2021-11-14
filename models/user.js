@@ -70,6 +70,8 @@ const userSchema = new mongoose.Schema({
     },
     updatedBy: {
         type: String,
-        required: true
+        required: false
     },
-})
+}, { timestamps: true })
+
+module.exports = mongoose.model('User', userSchema);
