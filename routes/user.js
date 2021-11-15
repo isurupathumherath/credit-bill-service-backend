@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //import controller function names
-const { create, read, readById } = require('../controllers/user');
+const { create, read, readById, login } = require('../controllers/user');
 
 router.post('/add', create);
 
