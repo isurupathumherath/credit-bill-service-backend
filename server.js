@@ -7,14 +7,10 @@ require('dotenv').config();
 
 // import routes
 const userRoutes = require('./routes/user');
+const authUser = require('./routes/user-login')
 
 // App
 const app = express();
-
-// Database
-// mongoose.createConnection(process.env.DATABASE).asPromise()
-//     .then(() => console.log("DB Connected"))
-//     .catch((err) => console.log(err));
 
 mongoose
     .connect(process.env.DATABASE, {
@@ -30,12 +26,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 // Route Middleware
-app.use('/api', userRoutes);
+app.use('/user', userRoutes);
+app.use('/auth', authUser);
 
 // Post
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
-
-//Test Commit
-
-//Test Commit on Dev Branch

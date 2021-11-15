@@ -1,4 +1,5 @@
 const User = require('../models/user');
+require('dotenv').config();
 
 //Add New User
 exports.create = (req, res) => {
@@ -84,5 +85,26 @@ exports.readById = (req, res) => {
         .exec((err, user) => {
             if (err) console.log(err);
             res.json(user);
+        });
+};
+
+//Login 
+exports.login = (req, res) => {
+    const { username, password } = req.body;
+    User.findOne({ username: username, password: password })
+        .exec((err, employee) => {
+            if (err) {
+                if (err.keyPattern.username == 1) {
+                    res.status(400).json({
+                        error: 'Username is already in use'
+                    });
+                }
+                else {
+                    res.status(400).json({
+                        error: 'Internal Server Error! Try Again!'
+                    });
+                }
+            };
+            res.json(employee);
         });
 };
