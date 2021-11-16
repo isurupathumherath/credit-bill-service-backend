@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken')
+const expressJwt = require('express-jwt');
 require('dotenv').config();
 
 //Add New User
@@ -105,6 +107,8 @@ exports.login = (req, res) => {
                     });
                 }
             };
-            res.json(user);
+            const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1d' })
+            res.json({ token, user });
+
         });
 };
