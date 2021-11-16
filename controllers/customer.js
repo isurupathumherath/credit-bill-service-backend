@@ -1,17 +1,20 @@
-const User = require('../models/user');
-const jwt = require('jsonwebtoken')
-const expressJwt = require('express-jwt');
+const Customer = require('../models/customer');
 require('dotenv').config();
 
-//Add New User
+//Add New Customer
 exports.create = (req, res) => {
-    const { firstName, middleName, lastName, address, emailAddress, mobileNumber, nic, dob, gender, username, password, role, addedBy } = req.body;
+    const { firstName, middleName, lastName, address, emailAddress, mobileNumber, nic, dob, gender, companyid, balance, addedAt
+    , updatedAt, addedBy, updatedBy } = req.body;
 
     switch (true) {
         case !firstName:
             return res.status(404).json({
                 error: 'First Name is Required'
             });
+        case !middleName:
+                return res.status(404).json({
+                    error: 'Middle Name is Required'
+                });
         case !lastName:
             return res.status(404).json({
                 error: 'Last Name is Required'
@@ -40,61 +43,70 @@ exports.create = (req, res) => {
             return res.status(404).json({
                 error: 'Gender is Required'
             });
-        case !username:
+        case !companyid:
             return res.status(404).json({
-                error: 'Username is Required'
+                error: 'Company ID is Required'
             });
-        case !password:
+        case !balance:
             return res.status(404).json({
-                error: 'Password is Required'
+                error: 'Balance is Required'
             });
-        case !role:
+        case !addedAt:
             return res.status(404).json({
-                error: 'Role is Required'
+                error: 'Added Date is Required'
             });
+        case !updatedAt:
+                return res.status(404).json({
+                    error: 'Updated Date is Required'
+                });
         case !addedBy:
             return res.status(404).json({
                 error: 'Added Person is Required'
             });
+        case !updatedBy:
+                return res.status(404).json({
+                    error: 'Updated Person is Required'
+                });
     }
 
-    User.create({ firstName, middleName, lastName, address, emailAddress, mobileNumber, nic, dob, gender, username, password, role, addedBy }, (err, user) => {
+    Customer.create({ firstName, middleName, lastName, address, emailAddress, mobileNumber, 
+        nic, dob, gender, companyid, balance, addedAt,updatedAt, addedBy, updatedBy }, (err, customer) => {
         if (err) {
             console.log(err)
             res.status(404).json({
                 error: 'Record is not added'
             })
         }
-        res.json(user);
+        res.json(customer);
     })
 }
 
-//Display All Users
+//Display All Customers
 exports.read = (req, res) => {
-    User.find({})
+    Customer.find({})
         // .limit(10)
         .sort({ createdAt: -1 })
-        .exec((err, users) => {
+        .exec((err, customers) => {
             if (err) console.log(err);
-            res.json(users);
+            res.json(customers);
         });
 };
 
-//Display One User by Id
+//Display All customers by Id
 exports.readById = (req, res) => {
     console.log(req.params.id)
-    User.findById(req.params.id)
-        .exec((err, user) => {
+    Customer.findById(req.params.id)
+        .exec((err, customer) => {
             if (err) console.log(err);
-            res.json(user);
+            res.json(customer);
         });
 };
 
 //Login 
-exports.login = (req, res) => {
+{/*exports.login = (req, res) => {
     const { username, password } = req.body;
     User.findOne({ username: username, password: password })
-        .exec((err, user) => {
+        .exec((err, employee) => {
             if (err) {
                 if (err.keyPattern.username == 1) {
                     res.status(400).json({
@@ -107,8 +119,6 @@ exports.login = (req, res) => {
                     });
                 }
             };
-            const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1d' })
-            res.json({ token, user });
-
+            res.json(employee);
         });
-};
+};*/}

@@ -7,7 +7,8 @@ require('dotenv').config();
 
 // import routes
 const userRoutes = require('./routes/user');
-const authUser = require('./routes/user-login')
+const authUser = require('./routes/user-login');
+const customerRoutes=require('./routes/customer')
 
 // App
 const app = express();
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 // Route Middleware
 app.use('/user', userRoutes);
 app.use('/auth', authUser);
+app.use('/customer',customerRoutes);
 
 // Post
 const port = process.env.PORT || 8000;
