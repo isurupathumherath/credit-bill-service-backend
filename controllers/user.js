@@ -106,13 +106,11 @@ exports.login = (req, res) => {
                         error: 'Internal Server Error! Try Again!'
                     });
                 }
-            } else if (responce != null) {
+            } else if (user != null) {
                 const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1d' })
                 res.json({ token, user });
             } else {
-                res.status(400).json({
-                    error: 'Internal Server Error! Try Again!'
-                });
+                res.json(user);
             }
 
 
