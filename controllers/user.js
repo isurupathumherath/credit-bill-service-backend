@@ -92,7 +92,7 @@ exports.readById = (req, res) => {
 exports.login = (req, res) => {
     const { username, password } = req.body;
     User.findOne({ username: username, password: password })
-        .exec((err, employee) => {
+        .exec((err, user) => {
             if (err) {
                 if (err.keyPattern.username == 1) {
                     res.status(400).json({
@@ -105,6 +105,6 @@ exports.login = (req, res) => {
                     });
                 }
             };
-            res.json(employee);
+            res.json(user);
         });
 };
