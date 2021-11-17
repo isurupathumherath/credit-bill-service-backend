@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema({
     firstName: {
         type: String,
         trim: true,
@@ -49,20 +49,24 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    username: {
+    companyid: {
         type: String,
         trim: true,
         max: 255,
         required: true
     },
-    password: {
+    balance: {
         type: String,
         max: 255,
         required: true
     },
-    role: {
-        type: String,
+    addedAt: {
+        type: Date,
         required: true
+    },
+    updatedAt: {
+        type: Date,
+        required: false
     },
     addedBy: {
         type: String,
@@ -74,4 +78,4 @@ const userSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Customer', customerSchema);
