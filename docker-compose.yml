@@ -1,0 +1,9 @@
+version: "3"
+services:
+       cbs-backend:
+           container_name: cbs-backend
+           image: cbs-backend
+           restart: always
+           build: .
+           ports:
+             - "8181:8000"
