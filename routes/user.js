@@ -2,11 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 //import controller function names
-const { create, read, readById, login } = require('../controllers/user');
+const { create, read, readById, requireSignin } = require('../controllers/user');
 
-router.post('/add', create);
+router.post('/add', requireSignin, create);
 
 router.get('/users', read);
-router.get('/userById/:id', readById);
+router.get('/userById/:id', requireSignin, readById);
+
+// router.get('/secret', requireSignin, (req, res) => {
+//     res.json({
+//         data: req.user.username
+//     })
+// })
 
 module.exports = router;
