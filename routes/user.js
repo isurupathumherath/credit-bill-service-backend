@@ -6,7 +6,7 @@ const { create, read, readById, requireSignin } = require('../controllers/user')
 
 router.post('/add', requireSignin, create);
 
-router.get('/users', read);
+router.get('/users', requireSignin, read);
 router.get('/userById/:id', requireSignin, readById);
 
 // router.get('/secret', requireSignin, (req, res) => {
