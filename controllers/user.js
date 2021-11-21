@@ -103,7 +103,7 @@ exports.login = (req, res) => {
                 }
                 else {
                     res.status(400).json({
-                        error: 'Internal Server Error! Try Again!'
+                        error: 'User Not Found!'
                     });
                 }
             } else if (user != null) {
