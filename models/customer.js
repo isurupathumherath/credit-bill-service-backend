@@ -62,7 +62,7 @@ const customerSchema = new mongoose.Schema({
     },
     addedAt: {
         type: Date,
-        required: true
+        required: false
     },
     updatedAt: {
         type: Date,
