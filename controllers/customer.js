@@ -3,77 +3,68 @@ require('dotenv').config();
 
 //Add New Customer
 exports.create = (req, res) => {
-    const { firstName, middleName, lastName, address, emailAddress, mobileNumber, nic, dob, gender, companyid, balance, addedAt
-    , updatedAt, addedBy, updatedBy } = req.body;
+    const { firstName, middleName, lastName, address, emailAddress, mobileNumber, nic, dob, gender, companyid, balance,
+    addedBy } = req.body;
 
     switch (true) {
         case !firstName:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'First Name is Required'
             });
         case !middleName:
-                return res.status(404).json({
+                return res.status(400).json({
                     error: 'Middle Name is Required'
                 });
         case !lastName:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'Last Name is Required'
             });
         case !address:
-            return res.status(404).json({
+            return res.status(400 ).json({
                 error: 'Address is Required'
             });
         case !emailAddress:
-            return res.status(404).json({
+            return res.status(400 ).json({
                 error: 'Email is Required'
             });
         case !mobileNumber:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'Mobile Number is Required'
             });
         case !nic:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'NIC is Required'
             });
         case !dob:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'Date of Birth is Required'
             });
         case !gender:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'Gender is Required'
             });
         case !companyid:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'Company ID is Required'
             });
         case !balance:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'Balance is Required'
             });
-        case !addedAt:
-            return res.status(404).json({
-                error: 'Added Date is Required'
-            });
-        case !updatedAt:
-                return res.status(404).json({
-                    error: 'Updated Date is Required'
-                });
+        
+       
         case !addedBy:
-            return res.status(404).json({
+            return res.status(400).json({
                 error: 'Added Person is Required'
             });
-        case !updatedBy:
-                return res.status(404).json({
-                    error: 'Updated Person is Required'
-                });
+       
     }
 
     Customer.create({ firstName, middleName, lastName, address, emailAddress, mobileNumber, 
-        nic, dob, gender, companyid, balance, addedAt,updatedAt, addedBy, updatedBy }, (err, customer) => {
-        if (err) {
-            console.log(err)
-            res.status(404).json({
+        nic, dob, gender, companyid, balance,  addedBy }, (error, customer) => {
+        if (error) {
+            console.log(error)
+            res.status(400).json({
                 error: 'Record is not added'
             })
         }
@@ -101,6 +92,37 @@ exports.readById = (req, res) => {
             res.json(customer);
         });
 };
+
+
+//Update Customers
+exports.update=(req,res)=>{
+    let customerId=req.params.id;
+    const{firstName, middleName, lastName, address, emailAddress, mobileNumber, nic, dob, gender, companyid, balance,
+        updatedBy}=req.body;
+
+    const updateCustomer={
+        firstName, 
+        middleName, 
+        lastName, 
+        address, 
+        emailAddress, 
+        mobileNumber, 
+        nic, 
+        dob, 
+        gender, 
+        companyid, 
+        balance,
+        updatedBy
+    };
+    Customer.findByIdAndUpdate(customerId,updateCustomer)
+    .then(() => {
+        res.status(200).send({ status: "Customer Updated" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ status: "Error with updating data" });
+      });
+}
 
 //Login 
 {/*exports.login = (req, res) => {
