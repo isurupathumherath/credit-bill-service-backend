@@ -93,6 +93,37 @@ exports.readById = (req, res) => {
         });
 };
 
+
+//Update Customers
+exports.update=(req,res)=>{
+    let customerId=req.params.id;
+    const{firstName, middleName, lastName, address, emailAddress, mobileNumber, nic, dob, gender, companyid, balance,
+        updatedBy}=req.body;
+
+    const updateCustomer={
+        firstName, 
+        middleName, 
+        lastName, 
+        address, 
+        emailAddress, 
+        mobileNumber, 
+        nic, 
+        dob, 
+        gender, 
+        companyid, 
+        balance,
+        updatedBy
+    };
+    Customer.findByIdAndUpdate(customerId,updateCustomer)
+    .then(() => {
+        res.status(200).send({ status: "Customer Updated" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ status: "Error with updating data" });
+      });
+}
+
 //Login 
 {/*exports.login = (req, res) => {
     const { username, password } = req.body;

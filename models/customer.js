@@ -70,7 +70,7 @@ const customerSchema = new mongoose.Schema({
     },
     addedBy: {
         type: String,
-        required: true
+        required: false
     },
     updatedBy: {
         type: String,
