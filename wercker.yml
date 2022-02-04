@@ -1,4 +1,4 @@
-box: node
+box: public.ecr.aws/docker/library/node:latest
 build:
   steps:
     - npm-install
